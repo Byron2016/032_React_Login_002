@@ -1,3 +1,9 @@
+const RULES = {
+    OFF: 'off',
+    WARN: 'warn',
+    ERROR: 'error'
+}
+
 module.exports = {
     "env": {
         "browser": true,
@@ -5,8 +11,15 @@ module.exports = {
     },
     "extends": [
         "standard-with-typescript",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        'prettier'
     ],
+    ignorePatterns: ["dist", ".eslintrc.cjs", "vite.config.ts"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "overrides": [
         {
             "env": {
@@ -22,11 +35,13 @@ module.exports = {
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
     },
     "plugins": [
         "react"
     ],
     "rules": {
+        'react/prop-types': RULES.OFF,
+        'react/react-in-jsx-scope': RULES.OFF,
     }
 }
