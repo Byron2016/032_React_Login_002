@@ -62,9 +62,9 @@
 
 # Steps
 
-- **Install and Setup Vite React**
+- **Front End**
 
-  - **Front End**
+  - **Install and Setup Vite React**
 
     ```bash
       pnpm create vite
@@ -356,7 +356,9 @@
           }
         ```
 
-  - **Back-End**
+- **Back-End**
+
+  - **Install and Setup Vite React**
     (28.05)
 
     ```bash
@@ -409,33 +411,70 @@
         pnpm add nodemon -D
       ```
 
-    - **Add a server**
-      (30.10 - 31.33)
+  - **Add a server**
+    (30.10 - 31.33)
+
+    ```js
+    const express = require("express");
+    const cors = require("cors");
+    const app = express();
+    const mongoose = require("mongoose");
+
+    require("dotenv").config();
+
+    const port = process.env.PORT || 5000;
+
+    app.use(cors());
+    app.use(express.json());
+
+    app.get("/", (req, res) => {
+      res.send("Hello World!!");
+    });
+
+    app.listen(port, () => {
+      console.log(
+        `Server is running on port: $ {port}. http://localhost:${port}/`
+      );
+    });
+    ```
+
+    ```bash
+      pnpx nodemon app
+    ```
+
+  - **Add new routes**
+    (31.33 - 34.50)
+
+    - Create new files for each route
+
+      - src/routes/login.js
+      - src/routes/refreshToken.js
+      - src/routes/signout.js
+      - src/routes/signup.js
+      - src/routes/todos.js
+      - src/routes/user.js
 
       ```js
-      const express = require("express");
-      const cors = require("cors");
-      const app = express();
-      const mongoose = require("mongoose");
+      const router = require("express").Router();
 
-      require("dotenv").config();
-
-      const port = process.env.PORT || 5000;
-
-      app.use(cors());
-      app.use(express.json());
-
-      app.get("/", (req, res) => {
-        res.send("Hello World!!");
+      router.get("/", (req, res) => {
+        res.send("login");
       });
 
-      app.listen(port, () => {
-        console.log(
-          `Server is running on port: $ {port}. http://localhost:${port}/`
-        );
-      });
+      module.exports = router;
       ```
 
-      ```bash
-        pnpx nodemon app
+    - Use the new routes in app.js.
+
+      ```js
+        ....
+        app.use(express.json())
+
+        app.use('/api/signup', require('./routes/signup'))
+        app.use('/api/login', require('./routes/login'))
+        app.use('/api/user', require('./routes/user'))
+        app.use('/api/todos', require('./routes/todos'))
+        app.use('/api/refresh-token', require('./routes/refreshToken'))
+        app.use('/api/signout', require('./routes/signout'))
+        ....
       ```

@@ -1,0 +1,8 @@
+// signup
+const router = require('express').Router()
+
+router.get('/', (req, res) => {
+  res.send('signup')
+})
+
+module.exports = router
