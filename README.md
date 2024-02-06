@@ -480,10 +480,14 @@
       ```
 
   - **Users' register flow**
-    (34.50 - )
+    (34.50 - 55.45)
+
     - **Unified responses**
-      (34.50 - 36.20)
+      (34.50)
+
       - Create new file into this path src/lib/ jsonResponse.js
+        (35.20 - 36.20)
+
         ```js
         exports.jsonResponse = function (statuscode, body) {
           return {
@@ -491,4 +495,244 @@
             body,
           };
         };
+        ```
+
+      - Use jsonResponse into signup and login (routes) route (Do the same for login route).
+
+        - For: back-end: signup
+          (36.20 - 38.50)
+
+          ```js
+          // signup
+          const { jsonResponse } = require("../lib/jsonResponse");
+
+          const router = require("express").Router();
+
+          router.post("/", (req, res) => {
+            const { username, name, password } = req.body;
+
+            if (!username || !name || !password) {
+              return res.status(400).json(
+                jsonResponse(400, {
+                  error: "Fields are required",
+                })
+              );
+            }
+
+            // crear usuario.
+            res.status(200).json(
+              jsonResponse(200, {
+                message: "User created successfully",
+              })
+            );
+          });
+
+          module.exports = router;
+          ```
+
+        - For: back-end: Login
+          (51.54 - 54.50)
+
+          ```js
+          // login
+          const router = require("express").Router();
+
+          const { jsonResponse } = require("../lib/jsonResponse");
+
+          router.post("/", (req, res) => {
+            const { username, password } = req.body;
+
+            if (!username || !password) {
+              return res.status(400).json(
+                jsonResponse(400, {
+                  error: "Fields are required",
+                })
+              );
+            }
+
+            // autentificar usuario.
+            const accessToken = "access_token";
+            const refreshToken = "refresh_token";
+            const user = {
+              id: "1",
+              name: "John Doe",
+              username: "JohnDoe",
+            };
+
+            res.status(200).json(
+              jsonResponse(200, {
+                user,
+                accessToken,
+                refreshToken,
+              })
+            );
+          });
+
+          module.exports = router;
+          ```
+
+- **Front-End:**
+
+  - **Call and use Back-End**
+    (38.50)
+
+    - Create a new constats file: src/auth/authConstants.ts with API URL
+      (39.50)
+
+      ```js
+      export const API_URL = "http://localhost:5000/api";
+      ```
+
+    - Create types: into this path "src/types/types.ts" with API URL
+      (44.50 - 46.18)
+
+      ```js
+      export interface AuthResponse {
+        body: {
+          user: User,
+          accessToken: string,
+          refreshToken: string,
+        };
+      }
+
+      export interface AuthResponseError {
+        body: {
+          error: string,
+        };
+      }
+
+      export interface User {
+        _id: string;
+        name: string;
+        username: string;
+      }
+      ```
+
+    - Modifyed Signup and Login files to event on form´s submit
+      (38.50 - 49.53)
+
+      - front-end: Signup
+
+        ```js
+          ....
+          import { Navigate, useNavigate } from "react-router-dom";
+          import { API_URL } from "../auth/constants";
+          import type { AuthResponseError } from "../types/types";
+
+          export default function Signup(){
+            ....
+            const [errorResponse, setErrorResponse] = useState("")
+
+            const auth = useAuth()
+
+            const goTo = useNavigate()
+
+            if(auth.isAuthenticated){
+              /* si ya está autentificado se va directo al dashboard. */
+              return <Navigate to="/dashboard"/>
+            }
+
+            async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+              e.preventDefault();
+              try {
+                const response = await fetch(`${API_URL}/signup`,{
+                  method:"POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    name,
+                    username,
+                    password,
+                  })
+                });
+
+                if(response.ok){
+                  console.log("User created successfully");
+                  setErrorResponse("")
+                  goTo("/")
+                } else {
+                  console.log("Something weng wrong");
+                  const json = await response.json() as AuthResponseError
+                  setErrorResponse(json.body.error)
+                  return
+                }
+              } catch (error) {
+                console.log(error)
+              }
+            }
+
+            return (
+              <DefaultLayout>
+                <form className="form" onSubmit={handleSubmit}>
+                    <h1>Signup</h1>
+                    {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
+                    ....
+                </form>
+              </DefaultLayout>
+            )
+          }
+        ```
+
+      - front-end: Login
+        (49.53 - 51.54)
+
+        ```js
+          ....
+          import { Navigate, useNavigate } from "react-router-dom";
+          import { API_URL } from "../auth/constants";
+          import type { AuthResponseError } from "../types/types";
+
+          export default function Login(){
+            ....
+            const [errorResponse, setErrorResponse] = useState("")
+
+            const auth = useAuth()
+
+            const goTo = useNavigate()
+
+            if(auth.isAuthenticated){
+              /* si ya está autentificado se va directo al dashboard. */
+              return <Navigate to="/dashboard"/>
+            }
+
+            async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+              e.preventDefault();
+              try {
+                const response = await fetch(`${API_URL}/login`,{
+                  method:"POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    username,
+                    password,
+                  })
+                });
+
+                if(response.ok){
+                  console.log("User login successfully");
+                  setErrorResponse("")
+                  goTo("/")
+                } else {
+                  console.log("Something weng wrong");
+                  const json = await response.json() as AuthResponseError
+                  setErrorResponse(json.body.error)
+                  return
+                }
+              } catch (error) {
+                console.log(error)
+              }
+            }
+
+            return (
+              <DefaultLayout>
+                <form className="form" onSubmit={handleSubmit}>
+                    <h1>Login</h1>
+                    {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
+                    ....
+                </form>
+              </DefaultLayout>
+            )
+          }
         ```
