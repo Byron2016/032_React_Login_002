@@ -355,3 +355,48 @@
             ....
           }
         ```
+
+  - **Back-End**
+    (28.05)
+
+    ```bash
+      mkdir auth-back
+      cd auth-back
+      pnpm init
+      echo  "node_modules" > .gitignore
+    ```
+
+        - Name: auth-back
+        - Project: React
+        - TypeScript Option: TypeScript + SWC
+        - Finish configuration
+        	- cd auth-back
+        	- pnpm install
+        	- pnpm run dev
+
+    - **Add some modules to out back-end project**
+
+      ```bash
+        pnpm add express cors bcrypt dotenv jsonwebtoken  mongoose
+        pnpm add nodemon -D
+      ```
+
+    - - **Add eslint standard and prettier**
+
+      ```bash
+        pnpm add eslint -D
+        npm init @eslint/config
+        pnpm add eeslint-config-prettier -D
+        pnpm add prettier -D
+      ```
+
+      - How would you like to use ESLint? · style
+      - What type of modules does your project use? · esm
+      - Which framework does your project use? · react
+      - Does your project use TypeScript? · No
+      - Where does your code run? · node
+      - How would you like to define a style for your project? · guide
+      - Which style guide do you want to follow? · standard
+      - What format do you want your config file to be in? · JavaScript
+      - Would you like to install them now? · Yes
+      - Which package manager do you want to use? · pnpm
