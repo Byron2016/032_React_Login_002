@@ -736,3 +736,36 @@
             )
           }
         ```
+
+- **MongoDB**
+
+  - **Configuration**
+    (55.45 - 59.18)
+
+    - Go to this URL: [MongoDB Atlas](https://www.mongodb.com/es/ cloud/atlas/lp/try4?utm_ad_campaign_id=19647047924& adgroup=148795219147&cq_cmp=19647047924&gad_source=1)
+    - Press: Visit MongoDB Atlas
+      - Database: Create a Database / Build your Database
+      - Free
+      - Credentias:
+        - Username
+        - Password
+      - Deploy Database
+      - Press Connect button
+        - Select connect to Cluster
+          - Select your driver and version
+            - Driver: Node.js
+            - Version: 5.5 or later
+          - Install your driver
+            - It is recomended to use mongodb, we are using mongose
+          - Add your connection string into your application
+            - Copy this connection string.
+
+  - **Conect Back-End to MongoDB**
+    (59.18 - 1.01.59)
+    - In **auth-back** Create a new .env file.
+      ```js
+      DB_CONNECTION_STRING = myDBConnectionString;
+      ACCESS_TOKEN_SECRET = myAccessToken;
+      REFRESH_TOKEN_SECRET = myRefreshToken;
+      ```
+    - To generate secure Tokens (1.02.20), you can go to [Online UUID Generator](https://www.uuidgenerator.net/)
