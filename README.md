@@ -63,3 +63,39 @@
 [⏪(Back to top)](#table-of-contents)
 
 # Steps
+
+- **Install and Setup Vite React**
+
+  - **Front End**
+
+      ```bash
+        pnpm create vite
+      ```
+  		- Name: auth-front 
+  		- Project: React
+  		- TypeScript Option: TypeScript + SWC 
+  		- Finish configuration
+    		- cd auth-front
+    		- pnpm install
+    		- pnpm run dev 
+
+    - **Add Routes Management**
+      ```bash
+        pnpm add react-router-dom
+      ```
+    - **Add eslint standard**
+      ```bash
+        pnpm add eslint -D 
+        npm init @eslint/config
+      ```
+
+      - How would you like to use ESLint? · style
+      - What type of modules does your project use? · esm
+      - Which framework does your project use? · react
+      - Does your project use TypeScript? ·  Yes
+      - Where does your code run? · browser
+      - How would you like to define a style for your project? · guide
+      - Which style guide do you want to follow? · standard-with-typescript
+      - What format do you want your config file to be in? · JavaScript
+      - Would you like to install them now? ·  Yes
+      - Which package manager do you want to use? · pnpm
