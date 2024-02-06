@@ -762,6 +762,7 @@
 
   - **Conect Back-End to MongoDB**
     (59.18 - 1.01.59)
+
     - In **auth-back** Create a new .env file.
       ```js
       DB_CONNECTION_STRING = myDBConnectionString;
@@ -769,3 +770,27 @@
       REFRESH_TOKEN_SECRET = myRefreshToken;
       ```
     - To generate secure Tokens (1.02.20), you can go to [Online UUID Generator](https://www.uuidgenerator.net/)
+
+- **Back-End**
+
+  - **Generate a new conection**
+    (1.01.59 - 1.03.08)
+
+    - Into App.js create a new function.
+
+      ```js
+        ....
+        app.use(express.json())
+
+        async function main () {
+          await mongoose.connect(process.env.DB_CONNECTION_STRING)
+          console.log('Connected to MongoDB')
+        }
+
+        main().catch(console.error)
+
+        app.use('/api/signup', require('./routes/signup'))
+        ....
+      ```
+
+      You will see into **Terminal** a message: Connected to MongoDB
