@@ -478,3 +478,17 @@
         app.use('/api/signout', require('./routes/signout'))
         ....
       ```
+
+  - **Users' register flow**
+    (34.50 - )
+    - **Unified responses**
+      (34.50 - 36.20)
+      - Create new file into this path src/lib/ jsonResponse.js
+        ```js
+        exports.jsonResponse = function (statuscode, body) {
+          return {
+            statuscode,
+            body,
+          };
+        };
+        ```
