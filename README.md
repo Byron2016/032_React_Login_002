@@ -374,14 +374,7 @@
         	- pnpm install
         	- pnpm run dev
 
-    - **Add some modules to out back-end project**
-
-      ```bash
-        pnpm add express cors bcrypt dotenv jsonwebtoken  mongoose
-        pnpm add nodemon -D
-      ```
-
-    - - **Add eslint standard and prettier**
+    - **Add eslint standard and prettier**
 
       ```bash
         pnpm add eslint -D
@@ -400,3 +393,17 @@
       - What format do you want your config file to be in? · JavaScript
       - Would you like to install them now? · Yes
       - Which package manager do you want to use? · pnpm
+
+    - **Add some modules to out back-end project**
+
+      - Server: expres
+      - cors
+      - Encriptation: bcrypt
+      - Enviroment variables: dotenv
+      - Tokens: jsonwebtoken
+      - DB: mongoose
+
+      ```bash
+        pnpm add express cors bcrypt dotenv jsonwebtoken  mongoose
+        pnpm add nodemon -D
+      ```
