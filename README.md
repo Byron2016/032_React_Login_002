@@ -402,8 +402,40 @@
       - Enviroment variables: dotenv
       - Tokens: jsonwebtoken
       - DB: mongoose
+      - nodemon
 
       ```bash
         pnpm add express cors bcrypt dotenv jsonwebtoken  mongoose
         pnpm add nodemon -D
+      ```
+
+    - **Add a server**
+      (30.10 - 31.33)
+
+      ```js
+      const express = require("express");
+      const cors = require("cors");
+      const app = express();
+      const mongoose = require("mongoose");
+
+      require("dotenv").config();
+
+      const port = process.env.PORT || 5000;
+
+      app.use(cors());
+      app.use(express.json());
+
+      app.get("/", (req, res) => {
+        res.send("Hello World!!");
+      });
+
+      app.listen(port, () => {
+        console.log(
+          `Server is running on port: $ {port}. http://localhost:${port}/`
+        );
+      });
+      ```
+
+      ```bash
+        pnpx nodemon app
       ```
